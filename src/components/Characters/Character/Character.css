@@ -1,0 +1,59 @@
+.character-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    background-color: #1e293b;
+    padding: 1rem;
+    border-radius: .5rem;
+    margin-bottom: 1rem;
+}
+
+.character-item .meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.character-item .meta h3{
+    margin: 0;
+}
+
+.character-item .meta .gender{
+    /* font-size: 14px; */
+    margin-right: .5rem;
+}
+
+
+.character-item .meta .status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    margin-right: .5rem;
+    background-color: #17b112;
+
+}
+
+.character-item .meta .status.red {
+    background-color: red;
+
+}
+
+.character-item img {
+    width: 64px;
+    height: 64px;
+    border-radius: .5rem;
+}
+
+.character-item .show-details {
+    cursor: pointer;
+}
+
+.character-item .show-details .icon {
+    width: 25px;
+    color: RED;
+
+}
+
+

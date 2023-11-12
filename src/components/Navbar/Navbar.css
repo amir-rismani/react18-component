@@ -1,0 +1,48 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    background-color: #1e293b;
+    border-radius: .5rem;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.navbar__logo {
+    font-size: large;
+    font-weight: bold;
+}
+
+.navbar__searchbar .text-field {
+    border: none;
+    outline: none;
+    font-size: large;
+    padding: .5rem;
+    background-color: #334155;
+    border-radius: .5rem;
+}
+
+.navbar__favorite {
+    position: relative;
+    display: flex;
+}
+
+.navbar__favorite .icon {
+    width: 30px;
+    color: red;
+}
+
+.navbar__favorite .badge {
+    font-size: x-small;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    background-color: red;
+    border-radius: 100%;
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    right: -8px;
+}

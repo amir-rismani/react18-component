@@ -1,4 +1,4 @@
-export const characters = [
+export const allCharacters = [
     {
         "id": 1,
         "name": "Rick Sanchez",
@@ -24,7 +24,7 @@ export const characters = [
         "created": "2017-11-04T18:48:46.250Z"
     },
     {
-        "id": 3,
+        "id": 2,
         "name": "Summer Smith",
         "status": "Alive",
         "species": "Human",

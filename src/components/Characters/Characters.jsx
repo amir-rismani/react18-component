@@ -1,17 +1,15 @@
+import { useState } from 'react';
 
 import Character from './Character/Character';
-import { characters } from '../../data/characters';
 
-import img from '../../assets/react.svg'
 import "./Characters.css"
-import CharacterDetails from './CharacterDetails/CharacterDetails';
-const Characters = () => {
+const Characters = ({ allCharacters, setCharacter }) => {
+    const [characters, setCharacters] = useState(allCharacters)
     return (
         <div className="characters">
             <div className="characters__list">
-                {characters.map(character => <Character character={character} key={character.id} />)}
+                {characters.map(character => <Character character={character} key={character.id} setCharacter={setCharacter}/>)}
             </div>
-            <CharacterDetails character={characters[0]} />
         </div>
     );
 }

@@ -11,7 +11,7 @@ const Episodes = ({ episodes }) => {
                 <ArrowDownCircleIcon className="sort" />
             </div>
             <div className='episodes__list'>
-                {episodes.map((episode) => <Episode episode={episode} key={episode.id} />)}
+                {episodes.map((episode, id) => <Episode episode={episode} id={id + 1} />)}
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 import { EyeIcon } from '@heroicons/react/24/outline'
 
 import "./Character.css"
-const Character = ({ character }) => {
+const Character = ({ character, setCharacter }) => {
     return (
         <div className="character-item">
             <div className='meta'>
@@ -17,7 +17,7 @@ const Character = ({ character }) => {
                     </div>
                 </div>
             </div>
-            <span className='show-details'><EyeIcon className='icon' /></span>
+            <span className='show-details' onClick={() => setCharacter(character)}><EyeIcon className='icon' /></span>
         </div>);
 }
 

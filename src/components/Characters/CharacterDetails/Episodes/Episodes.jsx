@@ -1,9 +1,8 @@
-import Episode from './Episode/Episode';
 import { ArrowDownCircleIcon } from '@heroicons/react/24/solid'
 
 import "./Episodes.css"
 
-const Episodes = ({ episodes }) => {
+const Episodes = ({ children }) => {
     return (
         <div className="episodes">
             <div className='episodes__header'>
@@ -11,7 +10,7 @@ const Episodes = ({ episodes }) => {
                 <ArrowDownCircleIcon className="sort" />
             </div>
             <div className='episodes__list'>
-                {episodes.map((episode) => <Episode episode={episode} key={episode.id} />)}
+                {children}
             </div>
         </div>
     );

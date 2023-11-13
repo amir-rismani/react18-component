@@ -1,5 +1,6 @@
 import "./CharacterDetails.css"
 import Episodes from './Episodes/Episodes';
+import Episode from './Episodes/Episode/Episode';
 
 const CharacterDetails = ({ character }) => {
     return (
@@ -22,9 +23,16 @@ const CharacterDetails = ({ character }) => {
                     </div>
                 </div>
             </div>
-            <Episodes episodes={character.episode} />
+            <Episodes>
+                {character.episode.map((episode) => <Episode episode={episode} key={episode.id} />)}
+            </Episodes>
         </div>
     );
 }
 
 export default CharacterDetails;
+
+
+const Details = () => {
+
+}

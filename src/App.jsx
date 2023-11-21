@@ -1,5 +1,5 @@
 import './App.css'
-import Navbar from './components/Navbar/Navbar'
+import Navbar, { SearchBar, SearchResult } from './components/Navbar/Navbar'
 import Characters from './components/Characters/Characters'
 import Character from './components/Characters/Character/Character';
 import CharacterDetails from './components/Characters/CharacterDetails/CharacterDetails'
@@ -8,8 +8,9 @@ import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 function App() {
   const [characters, setCharacters] = useState([])
-  const [character, setCharacter] = useState(null)
+  const [query, setQuery] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+
   useEffect(() => {
     // async/await fetch and axios
     async function fetchData() {
@@ -27,9 +28,10 @@ function App() {
 
       try {
         setIsLoading(true)
-        const { data } = await axios.get('https://rickandmortyapi.com/api/character')
-        setCharacters(data.results.slice(0, 5))
+        const { data } = await axios.get(`https://rickandmortyapi.com/api/character?name=${query}`)
+        setCharacters(data.results)
       } catch (error) {
+        setCharacters([])
         toast.error(error.response.data.error)
       } finally {
         setIsLoading(false)
@@ -63,17 +65,20 @@ function App() {
     //   .finally(() => {
     //     setIsLoading(false)
     //   })
-  }, [])
+  }, [query])
 
   return (
     <>
       <Toaster />
-      <Navbar />
+      <Navbar>
+        <SearchBar setQuery={setQuery} />
+        <SearchResult result={characters.length} />
+      </Navbar>
       <main>
         <Characters>
-          {characters.map(character => <Character character={character} key={character.id} setCharacter={setCharacter} />)}
+          {characters.map(character => <Character character={character} key={character.id} />)}
         </Characters>
-        {/* <CharacterDetails character={character || characters[0] || []} /> */}
+        {/* <CharacterDetails /> */}
       </main>
 
     </>

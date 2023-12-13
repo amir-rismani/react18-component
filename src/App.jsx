@@ -1,15 +1,28 @@
 import './App.css'
-import Navbar, { SearchBar, SearchResult } from './components/Navbar/Navbar'
+import Navbar, { Favorites, SearchBar, SearchResult } from './components/Navbar/Navbar'
 import Characters from './components/Characters/Characters'
 import Character from './components/Characters/Character/Character';
 import CharacterDetails from './components/Characters/CharacterDetails/CharacterDetails'
 import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
+import Loader from './components/Loader/Loader';
 function App() {
   const [characters, setCharacters] = useState([])
+  const [favorites, setFavorites] = useState([])
   const [query, setQuery] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [selectedCharacterId, setSelectedCharacterId] = useState(null)
+
+  const handleSelectedCharacter = (id) => {
+    setSelectedCharacterId(prevId => prevId === id ? null : id)
+  }
+
+  const handleSetFavorites = (character) => {
+    setFavorites((prevFav) => [...prevFav, character])
+  }
+
+  const isAddedFavorite = favorites.map(favorite => favorite.id).includes(selectedCharacterId);
 
   useEffect(() => {
     // async/await fetch and axios
@@ -29,7 +42,7 @@ function App() {
       try {
         setIsLoading(true)
         const { data } = await axios.get(`https://rickandmortyapi.com/api/character?name=${query}`)
-        setCharacters(data.results)
+        setCharacters(data.results.slice(0, 5))
       } catch (error) {
         setCharacters([])
         toast.error(error.response.data.error)
@@ -73,12 +86,17 @@ function App() {
       <Navbar>
         <SearchBar setQuery={setQuery} />
         <SearchResult result={characters.length} />
+        <Favorites favoritesLength={favorites.length} />
       </Navbar>
       <main>
-        <Characters>
-          {characters.map(character => <Character character={character} key={character.id} />)}
-        </Characters>
-        {/* <CharacterDetails /> */}
+        {
+          isLoading ?
+            <Loader /> :
+            <Characters>
+              {characters.map(character => <Character character={character} onSelectedCharacter={handleSelectedCharacter} selectedCharacterId={selectedCharacterId} key={character.id} />)}
+            </Characters>
+        }
+        <CharacterDetails characterId={selectedCharacterId} onSetFavorites={handleSetFavorites} isAddedFavorite={isAddedFavorite} />
       </main>
 
     </>

@@ -4,14 +4,10 @@ const Episode = ({ episode, id }) => {
     return (
         <div className="episode-item">
             <div className="episode-item__title">
-                <span className="id">{String(episode.id).padStart(2, '0')}: </span>
-                <strong className="neme">{episode.title}</strong>
+                <span className="id">{String(episode.id).padStart(2, '0')} - {episode.episode}:  </span>
+                <strong className="neme">{episode.name}</strong>
             </div>
-            <div className="episode-item__date">{new Date(episode.created).toLocaleDateString('en-US', {
-                month: "short",
-                day: "numeric",
-                year: "numeric"
-            })}</div>
+            <div className="episode-item__date">{episode.air_date}</div>
         </div>
     );
 }

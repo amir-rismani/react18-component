@@ -1,7 +1,8 @@
-import { EyeIcon } from '@heroicons/react/24/outline'
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 
 import "./Character.css"
-const Character = ({ character, setCharacter }) => {
+const Character = ({ character, selectedCharacterId, onSelectedCharacter }) => {
+    
     return (
         <div className="character-item">
             <div className='meta'>
@@ -17,7 +18,7 @@ const Character = ({ character, setCharacter }) => {
                     </div>
                 </div>
             </div>
-            <span className='show-details' onClick={() => setCharacter(character)}><EyeIcon className='icon' /></span>
+            <span className='show-details' onClick={() => onSelectedCharacter(character.id)}>{selectedCharacterId === character.id ? <EyeSlashIcon className='icon' /> : <EyeIcon className='icon' />}</span>
         </div>);
 }
 

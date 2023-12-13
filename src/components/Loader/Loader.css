@@ -1,0 +1,21 @@
+.loader{
+    /* width: 100vw; */
+    display: flex;
+    justify-content: center;
+}
+
+.loader__icon{
+    width: 25px;
+    margin: auto .5rem;
+    animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

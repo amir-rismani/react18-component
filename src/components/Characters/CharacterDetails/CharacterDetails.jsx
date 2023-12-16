@@ -1,10 +1,10 @@
 import "./CharacterDetails.css"
 import Episodes from './Episodes/Episodes';
-import Episode from './Episodes/Episode/Episode';
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import Loader from "../../Loader/Loader";
+import DetatilsInformation from "./DetatilsInformation/DetatilsInformation";
 
 const CharacterDetails = ({ characterId, onSetFavorites, isAddedFavorite }) => {
     const [character, setCharacter] = useState(null)
@@ -37,32 +37,8 @@ const CharacterDetails = ({ characterId, onSetFavorites, isAddedFavorite }) => {
     if (!character) return <p className="characters__details text-center">Character is not selected.</p>
     return (
         <div className="characters__details">
-            <div className="details">
-                <img src={character.image} />
-                <div className='meta'>
-                    <div>
-                        <div>
-                            <span className='gendar'>{character.gender === 'Male' ? '👨' : '👩'}</span><span>{character.name}</span>
-                        </div>
-                        <div>
-                            <span>{character.status === 'Alive' ? '🟢' : '🔴'}</span>{character.status} - <span>{character.species}</span>
-                        </div>
-                        <div className='meta__location'>
-                            <span className='mute'>Last known location:</span>
-                            <strong>{character.location?.name}</strong>
-                        </div>
-                        {
-                            !isAddedFavorite ?
-                                <button className='button' onClick={() => onSetFavorites(character)}>Add to Favorite</button> :
-                                <p>Already added to favorites ✅</p>
-                        }
-
-                    </div>
-                </div>
-            </div>
-            <Episodes>
-                {episodes.map((episode) => <Episode episode={episode} key={episode.id} />)}
-            </Episodes>
+            <DetatilsInformation character={character} isAddedFavorite={isAddedFavorite} onSetFavorites={onSetFavorites} />
+            <Episodes episodes={episodes} />
         </div>
     );
 }

@@ -47,6 +47,7 @@ function App() {
         )
         setCharacters(data.results.slice(0, 5))
       } catch (error) {
+        console.log(error)
         if (!axios.isCancel(error)) {
           setCharacters([])
           toast.error(error.response.data.error)

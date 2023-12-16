@@ -11,23 +11,26 @@ const CharacterDetails = ({ characterId, onSetFavorites, isAddedFavorite }) => {
     const [episodes, setEpisodes] = useState([])
     const [isLoader, setIsLoader] = useState(false)
     useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
         setCharacter(null)
         const fetchData = async () => {
             try {
                 setIsLoader(true)
-                const { data } = await axios.get(`https://rickandmortyapi.com/api/character/${characterId}`)
+                const { data } = await axios.get(`https://rickandmortyapi.com/api/character/${characterId}`, { signal })
                 setCharacter(data)
                 const episodeIds = data.episode.map(item => item.split('/').at(-1));
-                const { data: episodeList } = await axios.get(`https://rickandmortyapi.com/api/episode/${episodeIds}`)
+                const { data: episodeList } = await axios.get(`https://rickandmortyapi.com/api/episode/${episodeIds}`, { signal })
                 setEpisodes(episodeList.slice(0, 10))
             } catch (error) {
-                toast.error(error.response.data.error)
+                if (!axios.isCancel(error)) toast.error(error.response.data.error)
             } finally {
                 setIsLoader(false)
             }
         }
         if (characterId) fetchData()
-
+        return () => controller.abort();
     }, [characterId])
 
     if (isLoader) return <Loader />
@@ -65,8 +68,3 @@ const CharacterDetails = ({ characterId, onSetFavorites, isAddedFavorite }) => {
 }
 
 export default CharacterDetails;
-
-
-const Details = () => {
-
-}

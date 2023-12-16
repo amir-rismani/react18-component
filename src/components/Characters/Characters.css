@@ -1,6 +1,7 @@
 .characters {
     display: flex;
-    gap: 1rem
+    gap: 1rem;
+    flex-basis: 25rem;
 }
 
 .characters__list {

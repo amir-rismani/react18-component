@@ -1,6 +1,7 @@
 #root{
- max-width: 90rem;
- margin: auto;
+ /* max-width: 90rem;
+ min-height: 100dvh; */
+ /* margin: auto; */
 }
 
 main{

@@ -1,4 +1,6 @@
 import './App.css'
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+
 import Navbar, { Favorites, SearchBar, SearchResult } from './components/Navbar/Navbar'
 import Characters from './components/Characters/Characters'
 import Character from './components/Characters/Character/Character';
@@ -7,6 +9,7 @@ import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 import Loader from './components/Loader/Loader';
+import Modal from './components/Modal/Modal';
 function App() {
   const [characters, setCharacters] = useState([])
   const [favorites, setFavorites] = useState([])
@@ -22,6 +25,10 @@ function App() {
     setFavorites((prevFav) => [...prevFav, character])
   }
 
+  const handleRemoveFavorite = (id) => {
+    const filteredFavorites = favorites.filter(favorite => favorite.id !== id);
+    setFavorites(filteredFavorites)
+  }
   const isAddedFavorite = favorites.map(favorite => favorite.id).includes(selectedCharacterId);
 
   useEffect(() => {
@@ -92,17 +99,22 @@ function App() {
   return (
     <>
       <Toaster />
+      <Modal title="this is modal" isOpen={true}>
+        this is body
+      </Modal>
       <Navbar>
         <SearchBar setQuery={setQuery} />
         <SearchResult result={characters.length} />
-        <Favorites favoritesLength={favorites.length} />
+        <Favorites favorites={favorites} onRemoveFavorite={handleRemoveFavorite} />
       </Navbar>
       <main>
         {
           isLoading ?
             <Loader /> :
             <Characters>
-              {characters.map(character => <Character character={character} onSelectedCharacter={handleSelectedCharacter} selectedCharacterId={selectedCharacterId} key={character.id} />)}
+              {characters.map(character => <Character character={character} key={character.id} >
+                <span className='icon red' onClick={() => handleSelectedCharacter(character.id)}>{selectedCharacterId === character.id ? <EyeSlashIcon /> : <EyeIcon className='icon' />}</span>
+              </Character>)}
             </Characters>
         }
         <CharacterDetails characterId={selectedCharacterId} onSetFavorites={handleSetFavorites} isAddedFavorite={isAddedFavorite} />

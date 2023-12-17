@@ -46,14 +46,10 @@
     border-radius: .5rem;
 }
 
-.character-item .show-details {
-    cursor: pointer;
-}
-
-.character-item .show-details .icon {
+.icon.red{
     width: 25px;
     color: RED;
-
+    cursor: pointer;
 }
 
 

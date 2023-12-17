@@ -12,7 +12,7 @@ import Loader from './components/Loader/Loader';
 import Modal from './components/Modal/Modal';
 function App() {
   const [characters, setCharacters] = useState([])
-  const [favorites, setFavorites] = useState([])
+  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("FAVORITES")) || [])
   const [query, setQuery] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [selectedCharacterId, setSelectedCharacterId] = useState(null)
@@ -26,8 +26,7 @@ function App() {
   }
 
   const handleRemoveFavorite = (id) => {
-    const filteredFavorites = favorites.filter(favorite => favorite.id !== id);
-    setFavorites(filteredFavorites)
+    setFavorites(prevFavorites => prevFavorites.filter(favorite => favorite.id !== id))
   }
   const isAddedFavorite = favorites.map(favorite => favorite.id).includes(selectedCharacterId);
 
@@ -95,6 +94,10 @@ function App() {
     //     setIsLoading(false)
     //   })
   }, [query])
+
+  useEffect(() => {
+    localStorage.setItem("FAVORITES", JSON.stringify(favorites))
+  }, [favorites])
 
   return (
     <>

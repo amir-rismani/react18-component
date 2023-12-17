@@ -46,8 +46,7 @@
 }
 
 .details img {
-    width: 210px;
-    height: 210px;
+    width: auto;
     border-radius: .5rem 0 0 .5rem;
     background-color: aliceblue;
 }
